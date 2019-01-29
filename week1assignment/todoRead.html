@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    </head>
+    <body>
+        <div>JSON Displayed</div><br>
+
+        <script type="text/javascript">
+                      
+            let myRequest = 'http://localhost:3000/todo.json'
+            
+            
+            fetch(myRequest) //this is going to return a Promise (which is an object)
+            .then(function(response) {    //'response' is an object and json is an an attribute or w.e         
+                  return response.json()  
+                  //console.log(response)
+                  //.json is a built in function i think?   
+            })
+            .then(function(json) { 
+                console.log(json.length) //here is where you would actually do stuff with the data
+                var table = "<table class='table table-striped'>";
+                for(var i = 0; i < json.length; i++)
+                {
+                    table += "<tr><td>User ID: " + json[i].userId + "</td><td>ID: " + json[i].id + "</td><td>Title: " + json[i].title + "</td><td>Completed: " + json[i].completed + "</td></tr>";
+                }
+                table += "</table>";
+
+                var htmlTable = document.getElementById('tableDiv');
+                    htmlTable.innerHTML = table;
+            })
+           
+        </script>
+        
+        <div id='tableDiv'>
+
+        </div>
+
+    </body>
+</html>
