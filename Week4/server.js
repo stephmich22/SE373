@@ -1,5 +1,5 @@
 var express = require('express'); //can use vars or constant
-const hbs = require('hbs')
+const hbs = require('hbs');
 
 //initializing express
 var app = express();
@@ -83,4 +83,3 @@ app.listen(3000, () => {
     console.log('server is running on Port 3000');
 });
 
-// above is all shit that is required for this to work
