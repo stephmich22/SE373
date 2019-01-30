@@ -22,7 +22,7 @@ function generateColor() {
 
 hbs.registerHelper('generateGrid', (numberFromForm)=>{
     var table = "<table>";
-
+    
         for(let i = 0; i < numberFromForm; i++){
             table +=`<tr>`;
             for(let j = 0; j < numberFromForm; j++){
@@ -40,6 +40,42 @@ app.post('/grid',(req,res)=>{
         dropDownOption:Number(req.body.ddlNumber)
     })
 })
+
+app.use('/error',(req,res,next)=>{
+    res.render('error.hbs', {
+        num:generateRandoNum()
+    });
+    next; 
+});
+
+function generateRandoNum(){
+    var numbers = [20, 50];
+    var randoNum = Math.floor(Math.random() * 2);
+    return numbers[randoNum];
+}
+
+hbs.registerHelper('error404', (number)=>{
+    var text = "404";
+    //var table = `<table>`;
+    
+    var table = "";
+        for(let i = 0; i < number; i ++){
+
+            //table += `<tr>`;
+
+          //  for(let j = 0; j < number; j++) {
+                var classes = ["still", "rotate","shrink"];
+                var randomNum = Math.floor(Math.random() * 3);
+                table += `<div class='${classes[randomNum]}'>${text}</div>`;
+          //  }
+            console.log(randomNum, number, classes[randomNum])
+           // table += `</tr>`;
+        }
+   // table += `</table>`;
+    console.log(number);
+    return table;
+
+});
 
 function generateDropDownOptions() {
     var numbers = [3,4,5,10,20];
