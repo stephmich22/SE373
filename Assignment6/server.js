@@ -77,7 +77,7 @@ if(qString = 'true') {
 
     }//else CLOSE
     
-}); //this brings us to form page
+}); //this brings us to form pagesc
 
 
 //adding new employee ---------------------------------------------
