@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Index</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div class="container">
+    <div id="nav">
+    <h1>Our Employees</h1>
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Menu
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+            </div>
+</div>
+    </div><!-- nav Close -->
+<div id="addEmployeeDiv">
+   <form action="/view?employee=true" method='POST'>
+    <h2>Add Employee</h2>
+    First Name: <input type="text" id="firstNameAdd" name="firstNameAdd" class="form-control" />
+    Last Name: <input type="text" id="lastNameAdd" name="lastNameAdd" class="form-control" />
+    Department: <select name="departmentDDLAdd" id="departmentDDL" class="form-control">
+                <option>IT</option>
+                <option>Human Resources</option>
+                <option>Loan Origination</option>
+                </select>
+    Start Date: <input type="date" id="startDateAdd" name="startDateAdd" class="form-control" />
+    Job Title: <input type="text" id="jobTitleAdd" name="jobTitleAdd" class="form-control" />
+    <input type="submit" id="btnAddEmployee" name="btnAddEmployee" class="btn-primary" value="Add">
+   </form>
+</div>
+
+<script>
+    
+
+
+
+</script>
+</body>
+</html>
