@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Index</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div class="container">
+    <div id="nav">
+    <h1>Update an Employee</h1>
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Menu
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+            </div>
+</div>
+    </div><!-- nav Close -->
+<div id="addEmployeeDiv">
+    <form action="/view" method='POST'>
+    First Name: <input type="text" id="firstNameUpdate" name="firstNameUpdate" class="form-control" value={{firstName}} />
+    Last Name: <input type="text" id="lastNameUpdate" name="lastNameUpdate" class="form-control" value={{lastName}} />
+    Department: <select name="departmentDDLUpdate" id="departmentDDLUpdate" class="form-control">
+                <option>IT</option>
+                <option>Human Resources</option>
+                <option>Loan Origination</option>
+                </select>
+    Start Date: <input type="date" id="startDateUpdate" name="startDateUpdate" class="form-control" />
+    Job Title: <input type="text" id="jobTitleUpdate" name="jobTitleUpdate" class="form-control" value={{jobTitle}} />
+    Salary: <input type="text" id="salaryUpdate" name="salaryUpdate" class="form-control" value={{salary}} />
+    <input type="submit" id="btnUpdateEmployee" name="btnUpdateEmployee" class="btn-primary" value="Update">
+    </form>
+</div>
+</body>
+</html>

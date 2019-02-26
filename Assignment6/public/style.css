@@ -1,0 +1,13 @@
+.container {
+    margin:auto;
+    width:1000px;
+    text-align:center;
+}
+#addEmployeeDiv {
+    width:350px;
+    padding-top:10px;
+    margin:auto;
+}
+.btn-primary {
+    margin-top:5px;
+}
