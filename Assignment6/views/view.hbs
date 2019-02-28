@@ -9,6 +9,9 @@
 </head>
 <body>
     <h1>All Employees</h1>
+    <form action="/index" method="GET">
+    <input type="submit" value="Add New Employee" class="btn-primary">
+    </form>
     {{{employeeAdded}}}
     <form action="/update" method="POST">
     {{{getAllEmployees employees}}}

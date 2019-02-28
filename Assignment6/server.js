@@ -58,7 +58,6 @@ console.log(qString + "_------*&*$#&*%&#&*%&#&*^$&^*$");
 
 if(qString == 'true') {
    
-
     var newEmployee = new Employee();
     newEmployee.firstName = req.body.firstNameAdd;
     newEmployee.lastName = req.body.lastNameAdd;
@@ -68,15 +67,12 @@ if(qString == 'true') {
     newEmployee.salary = req.body.salaryAdd;
   
   newEmployee.save(function (err) {
-      if (err) return handleError(err);
-      // saved!
+    if (err) return res.send(500, { error: err });
       var allEmployees = Employee.find(function (err, employees) {
         if (err) return console.error(err);
-      //  console.log(employees + "THIS IS COMING FROM ALLEMPLOYEES FUNC");
-        //res.send({firstName:req.body.firstNameAdd});
         res.render("view.hbs",{employees, firstName:req.body.firstNameAdd});
       });
-  })
+  });
   
 }
  if(qString == 'update') {
@@ -97,10 +93,8 @@ if(qString == 'true') {
     
     Employee.findOneAndUpdate({_id:id}, upsertData, {upsert:true}, function(err, doc){
         if (err) return res.send(500, { error: err });
-
         var allEmployees = Employee.find(function (err, employees) {
             if (err) return console.error(err);
-            console.log("doc" + doc);
             res.render("view.hbs",{employees, firstName:req.body.firstNameAdd});
           });
     });
@@ -114,7 +108,6 @@ if(qString == 'delete') {
 
         var allEmployees = Employee.find(function (err, employees) {
             if (err) return console.error(err);
-            console.log("doc" + doc);
             res.render("view.hbs",{employees, firstName:req.body.firstNameAdd});
           });
     });
@@ -123,8 +116,6 @@ else {
     
     var allEmployees = Employee.find(function (err, employees) {
         if (err) return console.error(err);
-       // console.log(employees + "THIS IS COMING FROM ALLEMPLOYEES FUNC");
-        //res.send({firstName:req.body.firstNameAdd});
         res.render("view.hbs",{employees, firstName:req.body.firstNameAdd});
       });
 
@@ -209,7 +200,7 @@ hbs.registerHelper('getAllEmployees', (employees) => {
         table += `<td>${employees[i].startDate}</td>`;
         table += `<td>${employees[i].jobTitle}</td>`;
         table += `<td>${employees[i].salary}</td>`; 
-        table += `<td><form action='/update' method='POST'><input type='hidden' name='hiddenID' value=${employees[i]._id}><input type='submit'name='btnUpdate' value='Update' /></form><form action='/delete' method='POST'><input type='hidden' name='hiddenID' value=${employees[i]._id}><input type='submit'name='btnDelete' value='Delete' /></form></td>`;   
+        table += `<td><form action='/update' method='POST'><input type='hidden' name='hiddenID' value=${employees[i]._id}><input type='submit'name='btnUpdate' value='Update' class='btn-primary' /></form><form action='/delete' method='POST'><input type='hidden' name='hiddenID' value=${employees[i]._id}><input type='submit'name='btnDelete' value='Delete' class='btn-primary' /></form></td>`;   
         table += `</tr>`;
 
     }
