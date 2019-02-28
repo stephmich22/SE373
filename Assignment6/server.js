@@ -28,23 +28,35 @@ app.use('/update',(req,res)=>{
         // for(var i = 0; i < employee.length; i++) {
         //     console.log(employee[i].firstName);
         // }
-        res.render('update.hbs', {ID:req.body.hiddenID, firstName:employee.firstName, lastName:employee.lastName, jobTitle:employee.jobTitle, salary:employee.salary});
+        res.render('update.hbs', {ID:req.body.hiddenID, firstName:employee.firstName, lastName:employee.lastName, department:employee.department, startDate:employee.startDate, jobTitle:employee.jobTitle, salary:employee.salary});
     });
     
     
 }); //this brings us to form page
 
 app.use('/delete',(req,res)=>{
-    res.render('delete.hbs');
+    var employeeToDelete = new Employee();
+//*********************** THIS IS WHERE YOU LEFT OFF, JUST FILL IN TEXTT BOXES WITH INFO */
+     var id = req.body.hiddenID;
+     console.log(id)
+     employeeToDelete = Employee.findOne({ _id: id}, function (err, employee) {
+        if (err) return console.error(err);
+        console.log("THIS IS THE EMPLOYEE TO DELETE" + employee.firstName);
+
+        // for(var i = 0; i < employee.length; i++) {
+        //     console.log(employee[i].firstName);
+        // }
+        res.render('delete.hbs', {ID:req.body.hiddenID, firstName:employee.firstName, lastName:employee.lastName, department:employee.department, startDate:employee.startDate, jobTitle:employee.jobTitle, salary:employee.salary});
+    });
 }); //this brings us to form page
 
 app.all('/view',(req,res)=>{
 
 
 var qString = req.query.employee;
-//console.log(qString + "_------*&*$#&*%&#&*%&#&*^$&^*$");
+console.log(qString + "_------*&*$#&*%&#&*%&#&*^$&^*$");
 
-if(qString = 'true') {
+if(qString == 'true') {
    
 
     var newEmployee = new Employee();
@@ -66,7 +78,48 @@ if(qString = 'true') {
       });
   })
   
-} else {
+}
+ if(qString == 'update') {
+  console.log(qString + "fkankdngknkjdsvdnvjndsjkndksnjdsjdsj")
+    var id = req.query.id;
+    //console.log(id);
+
+    var newEmployee = new Employee();
+    newEmployee.firstName = req.body.firstNameUpdate;
+    newEmployee.lastName = req.body.lastNameUpdate;
+    newEmployee.department = req.body.departmentDDLUpdate;
+    newEmployee.jobTitle = req.body.jobTitleUpdate;
+    newEmployee.startDate = req.body.startDateUpdate;
+    newEmployee.salary = req.body.salaryUpdate;
+
+    var upsertData = newEmployee.toObject();
+    delete upsertData._id;
+    
+    Employee.findOneAndUpdate({_id:id}, upsertData, {upsert:true}, function(err, doc){
+        if (err) return res.send(500, { error: err });
+
+        var allEmployees = Employee.find(function (err, employees) {
+            if (err) return console.error(err);
+            console.log("doc" + doc);
+            res.render("view.hbs",{employees, firstName:req.body.firstNameAdd});
+          });
+    });
+
+} //if querystring ==update CLOSE
+if(qString == 'delete') {
+
+    var id = req.query.id;
+    Employee.findByIdAndRemove(id, function(err, doc){
+        if (err) return res.send(500, { error: err });
+
+        var allEmployees = Employee.find(function (err, employees) {
+            if (err) return console.error(err);
+            console.log("doc" + doc);
+            res.render("view.hbs",{employees, firstName:req.body.firstNameAdd});
+          });
+    });
+} 
+else {
     
     var allEmployees = Employee.find(function (err, employees) {
         if (err) return console.error(err);

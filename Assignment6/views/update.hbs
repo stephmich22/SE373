@@ -26,7 +26,7 @@
 </div>
     </div><!-- nav Close -->
 <div id="addEmployeeDiv">
-    <form action="/view" method='POST'>
+    <form action="/view?employee=update&id={{ID}}" method='POST'>
     First Name: <input type="text" id="firstNameUpdate" name="firstNameUpdate" class="form-control" value={{firstName}} />
     Last Name: <input type="text" id="lastNameUpdate" name="lastNameUpdate" class="form-control" value={{lastName}} />
     Department: <select name="departmentDDLUpdate" id="departmentDDLUpdate" class="form-control">
