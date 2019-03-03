@@ -12,8 +12,50 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({extended:false}));
 
 //routing -------------------------------------------------------
-app.get('/index',(req,res)=>{
-    res.render('index.hbs');
+
+function parseDate(input) {
+    var parts = input.match(/(\d+)/g);
+    // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
+    return new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
+  }
+
+app.all('/index',(req,res)=>{
+    var qString = req.query.add;
+
+    if(qString == 'true') {
+        
+        var d = new Date(req.body.startDateAdd);
+       
+        console.log("INPUT DATE: " + Number(d.getUTCMonth()) + 1 + "-" + Number(d.getUTCDay()) + 1 + "-" + d.getUTCFullYear());
+
+        var newEmployee = new Employee();
+    newEmployee.firstName = req.body.firstNameAdd;
+    newEmployee.lastName = req.body.lastNameAdd;
+    newEmployee.department = req.body.departmentDDLAdd;
+    newEmployee.jobTitle = req.body.jobTitleAdd;
+    newEmployee.startDate = req.body.startDateAdd;
+    newEmployee.salary = req.body.salaryAdd;
+
+        try {
+            const result =  newEmployee.save(function (err) {
+                 if (err) {
+                     console.log(err)
+                   //return res.send(500, { error: err });
+                    res.render('index.hbs',{error:err.errors.firstName.message})
+                 } else {
+                     var success = "Employee succesfully added. <input type='submit'>"
+                    res.render('index.hbs',{success})
+                 }
+               });
+                 console.log("TRY RESULT: " + result)
+         }catch(tryError) {
+             console.log("TRY ERROR: " + tryError);
+             res.render("index.hbs",{tryError});
+         }
+    } else {
+        res.render("index.hbs");
+    }
+    
 }); //this brings us to form page
 
 app.use('/update',(req,res)=>{
@@ -66,13 +108,20 @@ if(qString == 'true') {
     newEmployee.startDate = req.body.startDateAdd;
     newEmployee.salary = req.body.salaryAdd;
   
-  newEmployee.save(function (err) {
-    if (err) return res.send(500, { error: err });
-      var allEmployees = Employee.find(function (err, employees) {
-        if (err) return console.error(err);
-        res.render("view.hbs",{employees, firstName:req.body.firstNameAdd});
-      });
-  });
+    // try {
+    //    const result =  newEmployee.save(function (err) {
+    //         if (err) return res.send(500, { error: err });
+    //           var allEmployees = Employee.find(function (err, employees) {
+    //             if (err) return console.error(err);
+    //             res.render("view.hbs",{employees, firstName:req.body.firstNameAdd});
+    //           });
+    //       });
+    //         console.log("TRY RESULT: " + result)
+    // }catch(tryError) {
+    //     console.log("TRY ERROR: " + tryError);
+    //     res.render("index.hbs",{tryError});
+    // }
+  
   
 }
  if(qString == 'update') {
@@ -146,7 +195,11 @@ connection.on('connected', function() {
 // schemas and stuff -----------------------------------------------
 
 var emplSchema = new mongoose.Schema({
-    firstName: String,
+    firstName: {
+        type: String,
+        required: [true, 'First name is required.']
+        
+    },
     lastName: String,
     department: String,
     startDate: Date,

@@ -13,12 +13,13 @@
     <div id="nav">
     <h1>Add an Employee</h1>
     <form action="/view?employee=false" method="POST">
-        <input type="submit" name="btnViewPage" id="btnViewPage" value="View">
+        <input type="submit" name="btnViewPage" id="btnViewPage" value="View all Employees" class='btn-primary'>
     </form>
     </div><!-- nav Close -->
 <div id="addEmployeeDiv">
-   <form action="/view?employee=true" method='POST'>
+   <form action="/index?add=true" method='POST'>
     First Name: <input type="text" id="firstNameAdd" name="firstNameAdd" class="form-control" />
+    <p>{{error}}{{tryError}}{{result}}</p>
     Last Name: <input type="text" id="lastNameAdd" name="lastNameAdd" class="form-control" />
     Department: <select name="departmentDDLAdd" id="departmentDDL" class="form-control">
                 <option>IT</option>
@@ -29,6 +30,7 @@
     Job Title: <input type="text" id="jobTitleAdd" name="jobTitleAdd" class="form-control" />
     Salary: <input type="text" id="salaryAdd" name="salaryAdd" class="form-control" />
     <input type="submit" id="btnAddEmployee" name="btnAddEmployee" class="btn-primary" value="Add">
+    <p>{{{success}}}</p>
    </form>
 </div>
 
