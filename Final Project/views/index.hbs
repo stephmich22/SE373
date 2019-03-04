@@ -37,7 +37,7 @@
                 </select>
                 <p class='errorMSG'>{{errorMemType}}</p>
                 <input type="submit" id="btnAddStudent" name="btnAddStudent" class="btn-primary" value="Add Student">
-               <p>{{{success}}}</p>
+               <p class="success">{{{success}}}</p>
             </form>
              <form action="/view?table=student" method="POST">
                 <input type='submit' id="btnViewStudents" name="btnViewStudents" value="View all Students" class='btn-dark'>
@@ -49,15 +49,21 @@
             <div class='addDiv'>
             <form action="/index?add=instructor" method="POST">
                 <h2>Add an Instructor</h2>
-                <input type='text' id='instFirstNameAdd' name='instFirstNameAdd' placeholder="First Name" class="form-control">
-                <input type='text' id='instLastNameAdd' name='instLastNameAdd' placeholder="Last Name" class="form-control">
-                <input type='text' id='instPhoneAdd' name='instPhoneAdd' placeholder="Phone Number" class="form-control">
-                <input type='text' id='instYOEAdd' name='instYOEAdd' placeholder="Years of Experience" class="form-control">
-                <select id="specialtyClass" name="specialtyClass" class="form-control">
+                <input type='text' id='instFirstNameAdd' name='instFirstNameAdd' placeholder="First Name" class="form-control" value="{{fNameInst}}">
+                <p class='errorMSG'>{{errorFNameInst}}</p>
+                <input type='text' id='instLastNameAdd' name='instLastNameAdd' placeholder="Last Name" class="form-control" value="{{lNameInst}}">
+                <p class='errorMSG'>{{errorLNameInst}}</p>
+                <input type='text' id='instPhoneAdd' name='instPhoneAdd' placeholder="Phone Number" class="form-control" value="{{phoneInst}}">
+                <p class='errorMSG'>{{errorPhoneInst}}</p>
+                <input type='text' id='instYOEAdd' name='instYOEAdd' placeholder="Years of Experience" class="form-control" value="{{YOE}}">
+                <p class='errorMSG'>{{errorYOE}}</p>
+                <select id="specialtyClass" name="specialtyClass" class="form-control" value="{{specClass}}">
                     {{{classOptions}}}
+                    <option>Vinyasa</option>
                 </select>
+                <p class='errorMSG'>{{errorSpec}}</p>
                 <input type="submit" id="btnAddInstructor" name="btnAddInstructor" class="btn-primary" value="Add Instructor">
-               <p>{{{success}}}</p>
+               <p>{{{successInst}}}</p>
             </form>
             </div>
             <form action="/view?table=instructor" method="POST">
@@ -69,11 +75,14 @@
             <div class='addDiv'>
             <form action="/index?add=class" method="POST">
                 <h2>Add a Class</h2>
-                <input type='text' id='classNameAdd' name='classNameAdd' placeholder="Class Name" class="form-control">
-                <input type='text' id='classDiffAdd' name='classDiffAdd' placeholder="Level of Difficulty" class="form-control">
-                <input type='text' id='classDescAdd' name='classDescAdd' placeholder="Class Description" class="form-control">
+                <input type='text' id='classNameAdd' name='classNameAdd' placeholder="Class Name" class="form-control" value="{{className}}">
+                <p class='errorMSG'>{{errorClassNameAdd}}</p>
+                <input type='text' id='classDiffAdd' name='classDiffAdd' placeholder="Level of Difficulty" class="form-control" value="{{classDiff}}">
+                <p class='errorMSG'>{{errorClassDiffAdd}}</p>
+                <input type='text' id='classDescAdd' name='classDescAdd' placeholder="Class Description" class="form-control" value="{{classDesc}}">
+                <p class='errorMSG'>{{errorDescAdd}}</p>
                 <input type="submit" id="btnAddClass" name="btnAddClass" class="btn-primary" value="Add Class">
-               <p>{{{success}}}</p>
+               <p>{{{successClass}}}</p>
             </form>
             </div>
             <form action="/view?table=class" method="POST">

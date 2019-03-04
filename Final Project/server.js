@@ -107,12 +107,156 @@ app.all('/index',(req,res)=>{
 
     //------ INSTRUCTOR SECTION
     else if(qString == 'instructor') {
+
+        
+        var fNameInst = req.body.instFirstNameAdd;
+        var lNameInst = req.body.instLastNameAdd;
+        var phoneInst = req.body.instPhoneAdd;
+        var YOE = req.body.instYOEAdd;
+        var specClass = req.body.specialtyClass;
+        
         var newInstructor = new Instructor();
+        //collecting student info
+        newInstructor.firstName = req.body.instFirstNameAdd;
+        newInstructor.lastName = req.body.instLastNameAdd;
+        newInstructor.phoneNumber = req.body.instPhoneAdd;
+        newInstructor.experience = req.body.instYOEAdd;
+        newInstructor.specialtyClass = req.body.specialtyClass;
+        //error message variables
+        var errorFNameInst = "";
+        var errorLNameInst = "";
+        var errorPhoneInst = "";
+        var errorYOE = "";
+        var errorSpec = "";
+
+
+        try {
+            const result =  newInstructor.save(function (err) {
+                 if (err) {
+                     
+                     if(typeof err.errors.firstName !== "undefined")
+                    {
+                        errorFNameInst = err.errors.firstName.message;
+                        console.log("ERROR LENGTH: " + err.errors.firstName.message)
+                    } else {
+                        console.log("ERRORSAL: " + errorFNameInst);
+                    }
+                    if(typeof err.errors.lastName !== "undefined")
+                    {
+                        errorLNameInst = err.errors.lastName.message;
+                        console.log("ERRORFN: " + errorLNameInst);
+                    } 
+                    else {
+                        
+                        console.log("ERRORFN: " + errorLNameInst);
+                    }
+                    if(typeof err.errors.phoneNumber !== "undefined")
+                    {
+                        errorPhoneInst = err.errors.phoneNumber.message;;
+                        console.log("ERRORFN: " + errorPhoneInst);
+                    } 
+                    else {
+                        
+                        console.log("ERRORFN: " + errorPhoneInst);
+                    }
+                    if(typeof err.errors.experience !== "undefined")
+                    {
+                        errorYOE = err.errors.experience.message;
+                        console.log("ERRORFN: " + errorYOE);
+                    } 
+                    else {
+                        
+                        console.log("ERRORFN: " + errorYOE);
+                    }
+                    if(typeof err.errors.specialtyClass !== "undefined")
+                    {
+                        errorSpec = err.errors.specialtyClass.message;
+                        console.log("ERRORFN: " + errorSpec);
+                    } 
+                    else {
+                        
+                        console.log("ERRORFN: " + errorSpec);
+                    }
+
+                //return res.send(500, { error: err });
+                  
+                   res.render('index.hbs',{errorFNameInst, errorLNameInst, errorPhoneInst, errorSpec, errorYOE, fNameInst, lNameInst, phoneInst, YOE, specClass});
+
+                 } else {
+                     var successInst = "Instructor succesfully added.";
+                    res.render('index.hbs',{successInst});
+                 }
+               });
+                 console.log("TRY RESULT: " + result)
+         }catch(tryError) {
+             
+             res.render("index.hbs",{tryError});
+         }//catch CLOSE
     }//if qString == 'instructor' CLOSE
 
     //------ YOGACLASS SECTION
     else if(qString == 'class') {
+       
+        console.log("CLASS STRING")
+        var className = req.body.classNameAdd;
+        var classDiff = req.body.classDiffAdd;
+        var classDesc = req.body.classDescAdd;
+        
         var newYogaClass = new YogaClass()
+        //collecting student info
+        newYogaClass.className = req.body.classNameAdd;
+        newYogaClass.difficulty = req.body.classDiffAdd;
+        newYogaClass.description = req.body.classDescAdd;
+        
+        //error message variables
+        var errorClassNameAdd = "";
+        var errorClassDiffAdd = "";
+        var errorDescAdd = "";
+
+        try {
+            const result =  newYogaClass.save(function (err) {
+                 if (err) {
+                     
+                     if(typeof err.errors.className !== "undefined")
+                    {
+                        errorClassNameAdd = err.errors.className.message;
+                        console.log("ERROR LENGTH: " + err.errors.className.message)
+                    } else {
+                        console.log("ERRORSAL: " + errorClassNameAdd);
+                    }
+                    if(typeof err.errors.difficulty !== "undefined")
+                    {
+                        errorClassDiffAdd = err.errors.difficulty.message;
+                        console.log("ERRORFN: " + errorClassDiffAdd);
+                    } 
+                    else {
+                        
+                        console.log("ERRORFN: " + errorClassDiffAdd);
+                    }
+                    if(typeof err.errors.description !== "undefined")
+                    {
+                        errorDescAdd = err.errors.description.message;;
+                        console.log("ERRORFN: " + errorDescAdd);
+                    } 
+                    else {
+                        
+                        console.log("ERRORFN: " + errorDescAdd);
+                    }
+                    
+                //return res.send(500, { error: err });
+                  
+                   res.render('index.hbs',{errorClassDiffAdd, errorDescAdd, errorClassNameAdd, className, classDiff, classDesc});
+
+                 } else {
+                     var successClass = "Class succesfully added.";
+                    res.render('index.hbs',{successClass});
+                 }
+               });
+                 console.log("TRY RESULT: " + result)
+         }catch(tryError) {
+             
+             res.render("index.hbs",{tryError});
+         }//catch CLOSE
 
     }//if qString == 'class' CLOSE
     else {
@@ -121,6 +265,25 @@ app.all('/index',(req,res)=>{
 }); //route to index.hbs CLOSE
 
 app.all('/view',(req,res)=>{
+
+    var qString = req.query.table;
+
+    if(qString == 'student') {
+        //var allStudents = 
+        Student.find(function (err, students) {
+                        if (err) return console.error(err);
+                        
+        console.log("STUDENTS: " + students)
+        res.render("view.hbs",{students, title:"All Students"});
+        });//allStudents CLOSE
+    }
+    else if(qString == 'instructor') {
+        //instructor view stuff
+    } else {
+        //class view stuff
+        res.render("index.hbs");
+    }
+
     res.render('view.hbs');
 });//route to view.hbs CLOSE
 
@@ -135,6 +298,7 @@ app.all('/updateInstructor',(req,res)=>{
 app.all('/updateStudent',(req,res)=>{
     res.render('updateStudent.hbs');
 });//route to updateStudent.hbs CLOSE 
+
 
 //connecting to db ------------------------------------------------
 var mongoClient = require("mongodb").MongoClient.connect;
@@ -207,7 +371,7 @@ var instructorSchema = new mongoose.Schema({
     },
     lastName: {
         type: String,
-        required: [true, 'First name is required.']
+        required: [true, 'Last name is required.']
         
     },
     phoneNumber: {
@@ -231,6 +395,39 @@ var instructorSchema = new mongoose.Schema({
 
 //INSTRUCTOR OBJECT
 var Instructor = mongoose.model('instructor', instructorSchema);
+
+
+//------------------------------ HELPERS
+hbs.registerHelper('getAllStudents', (students) => {
+    // console.log("STUDENTS: " + students)
+    var table = "<table class='table table-striped table-bordered'>";
+    table += "<tr>";
+    table += "<th>First Name</th>";
+    table += "<th>Last Name</th>";
+    table += "<th>Phone Number</th>";
+    table += "<th>Email</th>";
+    table += "<th>Membership Type</th>";
+    table += "<th>Edit</th>";
+    table += "</tr>";
+
+    for(var i = 0; i < students.length; i++) {
+       
+        table += `<tr>`;
+        table += `<td>${students[i].firstName}</td>`;
+        table += `<td>${students[i].lastName}</td>`;
+        table += `<td>${students[i].phoneNumber}</td>`;
+        table += `<td>${students[i].email}</td>`;
+        table += `<td>${students[i].membershipType}</td>`;
+        table += `<td><form action='/update' method='POST'><input type='hidden' name='hiddenID' value=${students[i]._id}><input type='submit'name='btnUpdate' value='Update' class='btn-primary' /></form><form action='/delete' method='POST'><input type='hidden' name='hiddenID' value=${students[i]._id}><input type='submit'name='btnDelete' value='Delete' class='btn-primary' /></form></td>`;   
+        table += `</tr>`;
+
+    }
+    table += "</table>";
+
+    return table;
+});
+
+
 
 
 //---------------------------------------------------------------
