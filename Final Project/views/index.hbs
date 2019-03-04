@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Final Project</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div id='container'>
+    <div class='row'>
+        <div class='col-md-12'>
+            <div id='headerDiv'>
+               <a href='/index'><h1>Steph's Yoga Studio Management Program</h1></a>
+            </div><!-- headerDiv CLOSE -->
+        </div><!-- col CLOSE -->
+     </div><!--row CLOSE -->
+    <div class='row'>
+        <div class='col-lg-4 col-md-4 col-sm-12'>
+            <div class='addDiv'>
+                 <form action="/index?add=student" method="POST">
+                <h2>Add a Student</h2>
+                <input type='text' id='studFirstNameAdd' name='studFirstNameAdd' placeholder="First Name" class="form-control" value="{{fName}}">
+                <p class='errorMSG'>{{errorFName}}</p>
+                <input type='text' id='studLastNameAdd' name='studLastNameAdd' placeholder="Last Name" class="form-control" value="{{lName}}">
+                <p class='errorMSG'>{{errorLName}}</p>
+                <input type='text' id='studPhoneAdd' name='studPhoneAdd' placeholder="Phone Number" class="form-control" value="{{phone}}">
+                <p class='errorMSG'>{{errorPhone}}</p>
+                <input type='text' id='studEmailAdd' name='studEmailAdd' placeholder="Email" class="form-control" value="{{email}}">
+                <p class='errorMSG'>{{errorEmail}}</p>
+                <select id="studMemTypeAdd" name="studMemTypeAdd" class="form-control" value="{{membership}}">
+                    <option>Bronze</option>
+                    <option>Gold</option>
+                    <option>Platinum</option>
+                </select>
+                <p class='errorMSG'>{{errorMemType}}</p>
+                <input type="submit" id="btnAddStudent" name="btnAddStudent" class="btn-primary" value="Add Student">
+               <p>{{{success}}}</p>
+            </form>
+             <form action="/view?table=student" method="POST">
+                <input type='submit' id="btnViewStudents" name="btnViewStudents" value="View all Students" class='btn-dark'>
+             </form>
+            </div>
+        </div><!-- student add CLOSE -->
+
+        <div class='col-lg-4 col-md-4 col-sm-12'>
+            <div class='addDiv'>
+            <form action="/index?add=instructor" method="POST">
+                <h2>Add an Instructor</h2>
+                <input type='text' id='instFirstNameAdd' name='instFirstNameAdd' placeholder="First Name" class="form-control">
+                <input type='text' id='instLastNameAdd' name='instLastNameAdd' placeholder="Last Name" class="form-control">
+                <input type='text' id='instPhoneAdd' name='instPhoneAdd' placeholder="Phone Number" class="form-control">
+                <input type='text' id='instYOEAdd' name='instYOEAdd' placeholder="Years of Experience" class="form-control">
+                <select id="specialtyClass" name="specialtyClass" class="form-control">
+                    {{{classOptions}}}
+                </select>
+                <input type="submit" id="btnAddInstructor" name="btnAddInstructor" class="btn-primary" value="Add Instructor">
+               <p>{{{success}}}</p>
+            </form>
+            </div>
+            <form action="/view?table=instructor" method="POST">
+                <input type='submit' id="btnViewInstructors" name="btnViewInstructors" value="View all Instructors" class='btn-dark'>
+             </form>
+        </div><!-- instructor add CLOSE -->
+
+        <div class='col-lg-4 col-md-4 col-sm-12'>
+            <div class='addDiv'>
+            <form action="/index?add=class" method="POST">
+                <h2>Add a Class</h2>
+                <input type='text' id='classNameAdd' name='classNameAdd' placeholder="Class Name" class="form-control">
+                <input type='text' id='classDiffAdd' name='classDiffAdd' placeholder="Level of Difficulty" class="form-control">
+                <input type='text' id='classDescAdd' name='classDescAdd' placeholder="Class Description" class="form-control">
+                <input type="submit" id="btnAddClass" name="btnAddClass" class="btn-primary" value="Add Class">
+               <p>{{{success}}}</p>
+            </form>
+            </div>
+            <form action="/view?table=class" method="POST">
+                <input type='submit' id="btnViewClasses" name="btnViewClasses" value="View all Classes" class='btn-dark'>
+             </form>
+        </div><!-- class add CLOSE -->
+
+    </div><!-- row CLOSE -->
+    </div><!-- container CLOSE -->
+</body>
+</html>

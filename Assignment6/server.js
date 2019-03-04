@@ -36,12 +36,34 @@ app.all('/index',(req,res)=>{
     newEmployee.startDate = req.body.startDateAdd;
     newEmployee.salary = req.body.salaryAdd;
 
+
+    var errorSal = ""
+     var errorFN = ""
         try {
             const result =  newEmployee.save(function (err) {
                  if (err) {
-                     console.log(err)
-                   //return res.send(500, { error: err });
-                    res.render('index.hbs',{error:err.errors.firstName.message})
+                     
+                      
+                     if(typeof err.errors.salary !== "undefined")
+                    {
+
+                        errorSal = err.errors.salary.message;
+                        console.log("ERROR LENGTH: " + err.errors.salary.message)
+                    } else {
+                        console.log("ERRORSAL: " + errorSal)
+                    }
+                    if(typeof err.errors.firstName !== "undefined")
+                    {
+                        errorFN = err.errors.firstName.message;
+                        console.log("ERRORFN: " + errorFN)
+                    } 
+                    else {
+                        
+                        console.log("ERRORFN: " + errorFN)
+                    }
+                //return res.send(500, { error: err });
+                  
+                   res.render('index.hbs',{errorFN, errorSal})
                  } else {
                      var success = "Employee succesfully added. <input type='submit'>"
                     res.render('index.hbs',{success})
@@ -197,14 +219,18 @@ connection.on('connected', function() {
 var emplSchema = new mongoose.Schema({
     firstName: {
         type: String,
-        required: [true, 'First name is required.']
+        required: [true, 'First name is required.'],
+        minlength: [10, 'Not long enough']
         
     },
     lastName: String,
     department: String,
     startDate: Date,
     jobTitle: String,
-    salary: Number
+    salary: {
+        type: String,
+        validate: [/[0-9]/, 'Please enter valid numbers only.' ],
+    }
   });
 
 var Employee = mongoose.model('employee', emplSchema);

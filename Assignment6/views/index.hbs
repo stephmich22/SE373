@@ -19,7 +19,7 @@
 <div id="addEmployeeDiv">
    <form action="/index?add=true" method='POST'>
     First Name: <input type="text" id="firstNameAdd" name="firstNameAdd" class="form-control" />
-    <p>{{error}}{{tryError}}{{result}}</p>
+    <p>{{errorFN}}{{tryError}}{{result}}</p>
     Last Name: <input type="text" id="lastNameAdd" name="lastNameAdd" class="form-control" />
     Department: <select name="departmentDDLAdd" id="departmentDDL" class="form-control">
                 <option>IT</option>
@@ -29,6 +29,7 @@
     Start Date: <input type="date" id="startDateAdd" name="startDateAdd" class="form-control" />
     Job Title: <input type="text" id="jobTitleAdd" name="jobTitleAdd" class="form-control" />
     Salary: <input type="text" id="salaryAdd" name="salaryAdd" class="form-control" />
+    <p>{{{errorSal}}}</p>
     <input type="submit" id="btnAddEmployee" name="btnAddEmployee" class="btn-primary" value="Add">
     <p>{{{success}}}</p>
    </form>
