@@ -58,8 +58,7 @@
                 <input type='text' id='instYOEAdd' name='instYOEAdd' placeholder="Years of Experience" class="form-control" value="{{YOE}}">
                 <p class='errorMSG'>{{errorYOE}}</p>
                 <select id="specialtyClass" name="specialtyClass" class="form-control" value="{{specClass}}">
-                    {{{classOptions}}}
-                    <option>Vinyasa</option>
+                    {{{getAllClassOptions classes}}}
                 </select>
                 <p class='errorMSG'>{{errorSpec}}</p>
                 <input type="submit" id="btnAddInstructor" name="btnAddInstructor" class="btn-primary" value="Add Instructor">

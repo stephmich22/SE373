@@ -15,7 +15,9 @@ app.use(express.urlencoded({extended:false}));
 app.all('/index',(req,res)=>{
     var qString = req.query.add;
     
-   
+    var allClasses = YogaClass.find(function (err, classes) {
+        if (err) return res.send(500, { error: err });
+        console.log(classes);
 //------ STUDENT SECTION 
     if(qString == 'student') {
 
@@ -38,6 +40,7 @@ app.all('/index',(req,res)=>{
         var errorPhone = "";
         var errorEmail = "";
         var errorMemType = "";
+
 
 
         try {
@@ -90,17 +93,17 @@ app.all('/index',(req,res)=>{
 
                 //return res.send(500, { error: err });
                   
-                   res.render('index.hbs',{errorFName, errorLName, errorPhone, errorEmail, errorMemType, fName, lName, phone, email, membership});
+                   res.render('index.hbs',{errorFName, errorLName, errorPhone, errorEmail, errorMemType, fName, lName, phone, email, membership, classes});
 
                  } else {
                      var success = "Student succesfully added.";
-                    res.render('index.hbs',{success});
+                    res.render('index.hbs',{success, classes});
                  }
                });
                  console.log("TRY RESULT: " + result)
          }catch(tryError) {
              
-             res.render("index.hbs",{tryError});
+             res.render("index.hbs",{tryError, classes});
          }//catch CLOSE
 
     }// if qString == 'student' CLOSE
@@ -180,17 +183,17 @@ app.all('/index',(req,res)=>{
 
                 //return res.send(500, { error: err });
                   
-                   res.render('index.hbs',{errorFNameInst, errorLNameInst, errorPhoneInst, errorSpec, errorYOE, fNameInst, lNameInst, phoneInst, YOE, specClass});
+                   res.render('index.hbs',{errorFNameInst, errorLNameInst, errorPhoneInst, errorSpec, errorYOE, fNameInst, lNameInst, phoneInst, YOE, specClass, classes});
 
                  } else {
                      var successInst = "Instructor succesfully added.";
-                    res.render('index.hbs',{successInst});
+                    res.render('index.hbs',{successInst, classes});
                  }
                });
                  console.log("TRY RESULT: " + result)
          }catch(tryError) {
              
-             res.render("index.hbs",{tryError});
+             res.render("index.hbs",{tryError, classes});
          }//catch CLOSE
     }//if qString == 'instructor' CLOSE
 
@@ -245,46 +248,55 @@ app.all('/index',(req,res)=>{
                     
                 //return res.send(500, { error: err });
                   
-                   res.render('index.hbs',{errorClassDiffAdd, errorDescAdd, errorClassNameAdd, className, classDiff, classDesc});
+                   res.render('index.hbs',{errorClassDiffAdd, errorDescAdd, errorClassNameAdd, className, classDiff, classDesc, classes});
 
                  } else {
                      var successClass = "Class succesfully added.";
-                    res.render('index.hbs',{successClass});
+                    res.render('index.hbs',{successClass, classes});
                  }
                });
                  console.log("TRY RESULT: " + result)
          }catch(tryError) {
              
-             res.render("index.hbs",{tryError});
+             res.render("index.hbs",{tryError, classes});
          }//catch CLOSE
 
     }//if qString == 'class' CLOSE
     else {
-        res.render("index.hbs");
+        res.render("index.hbs", {classes});
     }
+    
+   });//classes CLOSE
 }); //route to index.hbs CLOSE
 
 app.all('/view',(req,res)=>{
-
+  
     var qString = req.query.table;
+    
 
     if(qString == 'student') {
-        //var allStudents = 
-        Student.find(function (err, students) {
-                        if (err) return console.error(err);
-                        
-        console.log("STUDENTS: " + students)
-        res.render("view.hbs",{students, title:"All Students"});
+
+        var allStudents = Student.find(function (err, students) {
+
+             res.render("view.hbs",{ students, title:"All Students", getStuds:true});
         });//allStudents CLOSE
-    }
+        
+    }//if student CLOSE
     else if(qString == 'instructor') {
-        //instructor view stuff
+
+        var allInstructors = Instructor.find(function (err, instructors) {
+            res.render("view.hbs",{ instructors, title:"All Instructors", getInst:true});
+       });//allInstructors CLOSE
+
     } else {
-        //class view stuff
-        res.render("index.hbs");
+
+        var allClasses = YogaClass.find(function (err, classes) {
+             res.render("view.hbs",{ classes, title:"All Classes", getClasses: true});
+        });//allClasses CLOSE
+
     }
 
-    res.render('view.hbs');
+  //  res.render('view.hbs');
 });//route to view.hbs CLOSE
 
 app.all('/updateClass',(req,res)=>{
@@ -398,7 +410,7 @@ var Instructor = mongoose.model('instructor', instructorSchema);
 
 
 //------------------------------ HELPERS
-hbs.registerHelper('getAllStudents', (students) => {
+hbs.registerHelper('getAllStudents', ( students) => {
     // console.log("STUDENTS: " + students)
     var table = "<table class='table table-striped table-bordered'>";
     table += "<tr>";
@@ -418,15 +430,80 @@ hbs.registerHelper('getAllStudents', (students) => {
         table += `<td>${students[i].phoneNumber}</td>`;
         table += `<td>${students[i].email}</td>`;
         table += `<td>${students[i].membershipType}</td>`;
-        table += `<td><form action='/update' method='POST'><input type='hidden' name='hiddenID' value=${students[i]._id}><input type='submit'name='btnUpdate' value='Update' class='btn-primary' /></form><form action='/delete' method='POST'><input type='hidden' name='hiddenID' value=${students[i]._id}><input type='submit'name='btnDelete' value='Delete' class='btn-primary' /></form></td>`;   
+        table += `<td><form action='/updateStudent' method='POST'><input type='hidden' name='hiddenID' value=${students[i]._id}><input type='submit'name='btnUpdate' value='Update' class='btn-primary' /></form><form action='/delete' method='POST'><input type='hidden' name='hiddenID' value=${students[i]._id}><input type='submit'name='btnDelete' value='Delete' class='btn-primary' /></form></td>`;   
         table += `</tr>`;
 
     }
     table += "</table>";
 
     return table;
-});
+});//getAllStudents CLOSE
 
+hbs.registerHelper('getAllInstuctors', (instructors) => {
+    // console.log("STUDENTS: " + students)
+    var table = "<table class='table table-striped table-bordered'>";
+    table += "<tr>";
+    table += "<th>First Name</th>";
+    table += "<th>Last Name</th>";
+    table += "<th>Phone Number</th>";
+    table += "<th>Years of Experience</th>";
+    table += "<th>Specialty Class</th>";
+    table += "<th>Edit</th>";
+    table += "</tr>";
+
+    for(var i = 0; i < instructors.length; i++) {
+       
+        table += `<tr>`;
+        table += `<td>${instructors[i].firstName}</td>`;
+        table += `<td>${instructors[i].lastName}</td>`;
+        table += `<td>${instructors[i].phoneNumber}</td>`;
+        table += `<td>${instructors[i].experience}</td>`;
+        table += `<td>${instructors[i].specialtyClass}</td>`;
+        table += `<td><form action='/updateInstructor' method='POST'><input type='hidden' name='hiddenID' value=${instructors[i]._id}><input type='submit'name='btnUpdate' value='Update' class='btn-primary' /></form><form action='/delete' method='POST'><input type='hidden' name='hiddenID' value=${instructors[i]._id}><input type='submit'name='btnDelete' value='Delete' class='btn-primary' /></form></td>`;   
+        table += `</tr>`;
+
+    }
+    table += "</table>";
+
+    return table;
+});//getAllInstructors CLOSE
+
+hbs.registerHelper('getAllClasses', (classes) => {
+    // console.log("STUDENTS: " + students)
+    var table = "<table class='table table-striped table-bordered'>";
+    table += "<tr>";
+    table += "<th>Class Name</th>";
+    table += "<th>Difficulty</th>";
+    table += "<th>Description</th>";
+    table += "<th>Edit</th>";
+    table += "</tr>";
+
+    for(var i = 0; i < classes.length; i++) {
+       
+        table += `<tr>`;
+        table += `<td>${classes[i].className}</td>`;
+        table += `<td>${classes[i].difficulty}</td>`;
+        table += `<td>${classes[i].description}</td>`;
+        table += `<td><form action='/updateClass' method='POST'><input type='hidden' name='hiddenID' value=${classes[i]._id}><input type='submit'name='btnUpdate' value='Update' class='btn-primary' /></form><form action='/delete' method='POST'><input type='hidden' name='hiddenID' value=${classes[i]._id}><input type='submit'name='btnDelete' value='Delete' class='btn-primary' /></form></td>`;   
+        table += `</tr>`;
+
+    }
+    table += "</table>";
+
+    return table;
+});//getAllClasses CLOSE
+
+hbs.registerHelper('getAllClassOptions',(allClasses) => {
+    
+   var options = "";
+   
+   for(var i = 0; i < allClasses.length; i++) {
+        options += `<option>${allClasses[i].className}</option>`;
+        console.log("OPTIONS: " + options)
+   }//for CLOSE
+   
+   return options;
+ });//getAllClassOptions
 
 
 

@@ -10,10 +10,25 @@
 </head>
 <body>
     <div id="container">
+            <div class='row'>
+        <div class='col-md-12'>
+            <div id='headerDiv'>
+               <a href='/index'><h1>Steph's Yoga Studio Management Program</h1></a>
+            </div><!-- headerDiv CLOSE -->
+        </div><!-- col CLOSE -->
+     </div><!--row CLOSE -->
         <div class="row">
             <div class="col-md-12">
                 <h2>{{{title}}}</h2>
+                {{#if getStuds}}
                 {{{getAllStudents students}}}
+                {{/if}}
+                {{#if getInst}}
+                {{{getAllInstuctors instructors}}}
+                {{/if}}
+                {{#if getClasses}}
+                {{{getAllClasses classes}}}
+                {{/if}}
             </div>
         </div>
     </div>
