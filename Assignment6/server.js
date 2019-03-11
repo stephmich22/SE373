@@ -65,7 +65,7 @@ app.all('/index',(req,res)=>{
                   
                    res.render('index.hbs',{errorFN, errorSal})
                  } else {
-                     var success = "Employee succesfully added. <input type='submit'>"
+                     var success = "Employee succesfully added."
                     res.render('index.hbs',{success})
                  }
                });
@@ -105,7 +105,6 @@ app.use('/delete',(req,res)=>{
      console.log(id)
      employeeToDelete = Employee.findOne({ _id: id}, function (err, employee) {
         if (err) return console.error(err);
-        console.log("THIS IS THE EMPLOYEE TO DELETE" + employee.firstName);
 
         // for(var i = 0; i < employee.length; i++) {
         //     console.log(employee[i].firstName);
@@ -255,6 +254,7 @@ hbs.registerHelper('addNewEmployee', (employeeInfo) => {
         if(err) return console.error(err)
     }); 
 });
+
 //get all employees helper function
 hbs.registerHelper('getAllEmployees', (employees) => {
 

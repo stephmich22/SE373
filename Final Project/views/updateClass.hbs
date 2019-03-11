@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Final Project</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div id='container'>
+    <div class='row'>
+        <div class='col-md-12'>
+            <div id='headerDiv'>
+               <a href='/index'><h1>Steph's Yoga Studio Management Program</h1></a>
+            </div><!-- headerDiv CLOSE -->
+        </div><!-- col CLOSE -->
+     </div><!--row CLOSE -->
+    <div class='row'>
+        <div class='col-12'>
+            <div id='updateDiv'>
+                 <form action="/updateClass?update=t&id={{ID}}{{qStringID}}" method="POST">
+                <h2>Add a Class</h2>
+                <input type='text' id='classNameAdd' name='classNameAdd' placeholder="Class Name" class="form-control" value="{{className}}">
+                <p class='errorMSG'>{{errorClassNameAdd}}</p>
+                <input type='text' id='classDiffAdd' name='classDiffAdd' placeholder="Level of Difficulty" class="form-control" value="{{classDiff}}">
+                <p class='errorMSG'>{{errorClassDiffAdd}}</p>
+                <input type='text' id='classDescAdd' name='classDescAdd' placeholder="Class Description" class="form-control" value="{{classDesc}}">
+                <p class='errorMSG'>{{errorDescAdd}}</p>
+                
+                
+                <input type='submit' id="btnViewStudents" name="btnViewStudents" value="Update Class" class='btn-primary'>
+             </form>
+             <form action='/view?table=class' method="POST">
+                    <input type='submit' value='Return to Table' class='btn-dark'>
+                </form>
+            </div>
+        </div><!-- student add CLOSE -->
+
+    </div><!-- row CLOSE -->
+    </div><!-- container CLOSE -->
+</body>
+</html>

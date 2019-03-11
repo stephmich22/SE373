@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Final Project</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div id='container'>
+    <div class='row'>
+        <div class='col-md-12'>
+            <div id='headerDiv'>
+               <a href='/index'><h1>Steph's Yoga Studio Management Program</h1></a>
+            </div><!-- headerDiv CLOSE -->
+        </div><!-- col CLOSE -->
+     </div><!--row CLOSE -->
+    <div class='row'>
+        <div class='col-12'>
+            <div id='updateDiv'>
+                 <form action="/updateStudent?update=t&id={{ID}}{{qStringID}}" method="POST">
+                <h2>Update Student</h2>
+                <input type='text' id='studFirstNameAdd' name='studFirstNameAdd' placeholder="First Name" class="form-control" value="{{fName}}">
+                <p class='errorMSG'>{{errorFName}}</p>
+                <input type='text' id='studLastNameAdd' name='studLastNameAdd' placeholder="Last Name" class="form-control" value="{{lName}}">
+                <p class='errorMSG'>{{errorLName}}</p>
+                <input type='text' id='studPhoneAdd' name='studPhoneAdd' placeholder="Phone Number" class="form-control" value="{{phone}}">
+                <p class='errorMSG'>{{errorPhone}}</p>
+                <input type='text' id='studEmailAdd' name='studEmailAdd' placeholder="Email" class="form-control" value="{{email}}">
+                <p class='errorMSG'>{{errorEmail}}</p>
+                <select id="studMemTypeAdd" name="studMemTypeAdd" class="form-control" value="{{membership}}">
+                    <option>Bronze</option>
+                    <option>Gold</option>
+                    <option>Platinum</option>
+                </select>
+                <p class='errorMSG'>{{errorMemType}}</p>
+                
+               <p class="success">{{{success}}}</p>
+                <input type='submit' id="btnViewStudents" name="btnViewStudents" value="Update Student" class='btn-primary'>
+             </form>
+             <form action='/view?table=student' method="POST">
+                    <input type='submit' value='Return to Table' class='btn-dark'>
+                </form>
+            </div>
+        </div><!-- student add CLOSE -->
+
+    </div><!-- row CLOSE -->
+    </div><!-- container CLOSE -->
+</body>
+</html>

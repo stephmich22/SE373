@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Final Project</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div id='container'>
+    <div class='row'>
+        <div class='col-md-12'>
+            <div id='headerDiv'>
+               <a href='/index'><h1>Steph's Yoga Studio Management Program</h1></a>
+            </div><!-- headerDiv CLOSE -->
+        </div><!-- col CLOSE -->
+     </div><!--row CLOSE -->
+     <div class="row">
+         <div class="col-md-12">
+             <form action='/view?do=delete{{title}}&id={{ID}}' method='POST'>
+             <h2>Are you sure you'd like to delete this {{title}} record?</h2>
+        <div class='mainContentDiv'>
+             {{#if isStudent}}
+             <p><b>First Name</b>: {{fName}}</p>
+             <p><b>Last Name:</b> {{lName}}</p>
+             <p><b>Phone: </b>{{phone}}</p>
+             {{/if}}
+             {{#if isInstructor}}
+             <p><b>First Name:</b> {{fName}}</p>
+             <p><b>Last Name:</b> {{lName}}</p>
+             {{/if}}
+             {{#if isClass}}
+             <p><b>Class Name: </b>{{className}}</p>
+             {{/if}}
+                
+                <div class='deleteButtonsMainDiv'>
+                    <div class='leftBtnDiv'>
+                    <input type='submit' value='Yes' class='btn-primary'>
+                    </div>
+                </form>
+                <form action='/view?table={{title}}' method="POST" >
+                <div class='rightBtnDiv'>
+                    <input type='submit' value='No' class='btn-dark'>
+                    </div>
+                </form>
+                </div>
+                </div>
+         </div>
+         
+     </div>
+    </div><!-- container CLOSE -->
+</body>
+</html>

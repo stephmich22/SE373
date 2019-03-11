@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Final Project</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div id='container'>
+    <div class='row'>
+        <div class='col-md-12'>
+            <div id='headerDiv'>
+               <a href='/index'><h1>Steph's Yoga Studio Management Program</h1></a>
+            </div><!-- headerDiv CLOSE -->
+        </div><!-- col CLOSE -->
+     </div><!--row CLOSE -->
+    <div class='row'>
+        <div class='col-12'>
+            <div id='updateDiv'>
+                 <form action="/updateInstructor?update=t&id={{ID}}{{qStringID}}" method="POST">
+                <h2>Update Instructor</h2>
+                <input type='text' id='instFirstNameAdd' name='instFirstNameAdd' placeholder="First Name" class="form-control" value="{{fNameInst}}">
+                <p class='errorMSG'>{{errorFNameInst}}</p>
+                <input type='text' id='instLastNameAdd' name='instLastNameAdd' placeholder="Last Name" class="form-control" value="{{lNameInst}}">
+                <p class='errorMSG'>{{errorLNameInst}}</p>
+                <input type='text' id='instPhoneAdd' name='instPhoneAdd' placeholder="Phone Number" class="form-control" value="{{phoneInst}}">
+                <p class='errorMSG'>{{errorPhoneInst}}</p>
+                <input type='text' id='instYOEAdd' name='instYOEAdd' placeholder="Years of Experience" class="form-control" value="{{YOE}}">
+                <p class='errorMSG'>{{errorYOE}}</p>
+                <select id="specialtyClass" name="specialtyClass" class="form-control" value="{{specClass}}">
+                    {{{getAllClassOptions classes}}}
+                </select>
+                <p class='errorMSG'>{{errorSpec}}</p>
+                
+               <p class="success">{{{success}}}</p>
+                <input type='submit' id="btnViewStudents" name="btnViewStudents" value="Update Instructor" class='btn-primary'>
+             </form>
+             <form action='/view?table=instructor' method="POST">
+                    <input type='submit' value='Return to Table' class='btn-dark'>
+                </form>
+            </div>
+        </div><!-- student add CLOSE -->
+
+    </div><!-- row CLOSE -->
+    </div><!-- container CLOSE -->
+</body>
+</html>

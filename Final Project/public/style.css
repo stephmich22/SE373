@@ -3,3 +3,52 @@
     margin:auto;
     text-align:center;
 }
+h1 {
+    font-weight:bold;
+	color: #006dcc;
+	
+}
+.btn-primary {
+    border-radius:2px;
+}
+.btn-dark {
+    margin-top:2px;
+    border-radius:2px;
+}
+.btn-dark.table {
+    width:68px;
+}
+.btn-dark.no {
+    margin:0;
+}
+#updateDiv {
+    width:400px;
+    margin:auto;
+}
+.deleteButtonsMainDiv {
+   
+    width:150px;
+    margin:auto;
+}
+.rightBtnDiv {
+
+    width:70px;
+    float:right;
+}
+.leftBtnDiv {
+
+    width:70px;
+    float:left;
+}
+.row {
+    padding:25px;
+}
+.mainContentDiv {
+    
+    margin:auto;
+    padding-top:30px;
+}
+.UpdateButtonsMainDiv {
+    margin:auto;
+    width:200px;
+}
